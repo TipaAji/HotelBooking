@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
 
   private baseURL:string='http://localhost:8080';
 
+  messages!:string[];
   private getUrl:string = this.baseURL + '/room/reservation/v1/';
   private postUrl:string = this.baseURL + '/room/reservation/v1';
   public submitted!:boolean;
@@ -44,6 +45,8 @@ export class AppComponent implements OnInit{
       this.currentCheckInVal = x.checkin;
       this.currentCheckOutVal = x.checkout;
     });
+
+    this.getWelcome().subscribe(data => {this.messages = data});
   }
 
     onSubmit({value,valid}:{value:Roomsearch,valid:boolean}){
@@ -81,6 +84,10 @@ export class AppComponent implements OnInit{
 
 
        return this.httpClient.get(this.baseURL + '/room/reservation/v1?checkin='+ this.currentCheckInVal + '&checkout='+this.currentCheckOutVal, {responseType: 'json'});
+    }
+
+    getWelcome(): Observable<any> {
+      return this.httpClient.get(this.baseURL + '/api/welcome');
     }
 
   }
