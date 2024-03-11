@@ -7,8 +7,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Time {
-    public LocalTime[] getTime(){
-        LocalTime[] times = new LocalTime[3];
+    public String[] getTime(){
+        String[] times = new String[3];
         ZoneId eastern =ZoneId.of("America/New_York");
         ZoneId mountain =ZoneId.of("America/Denver");
         ZoneId utc = ZoneId.of("UTC");
@@ -18,18 +18,18 @@ public class Time {
 
         ZonedDateTime zonedDateTimeUTC=localDateTime.atZone(utc);
         LocalDateTime localDateTimeUTC = zonedDateTimeUTC.toLocalDateTime();
-        String text = localDateTimeUTC.format(formatter);
-        times[2] = LocalTime.parse(text, formatter);
+        String text = localDateTimeUTC.format(formatter) + " UTC";
+        times[2] = text;
 
         ZonedDateTime zonedDateTimeEastern=zonedDateTimeUTC.withZoneSameInstant(eastern);
         LocalDateTime localDateTimeEastern=zonedDateTimeEastern.toLocalDateTime();
-        String text1 = localDateTimeEastern.format(formatter);
-        times[0] = LocalTime.parse(text1, formatter);
+        String text1 = localDateTimeEastern.format(formatter) + " ET";
+        times[0] = text1;
 
         ZonedDateTime zonedDateTimeMountain=zonedDateTimeUTC.withZoneSameInstant(mountain);
         LocalDateTime localDateTimeMountain=zonedDateTimeMountain.toLocalDateTime();
-        String text2 = localDateTimeMountain.format(formatter);
-        times[1] = LocalTime.parse(text2, formatter);
+        String text2 = localDateTimeMountain.format(formatter) + " MT";
+        times[1] = text2;
 
 
         return times;

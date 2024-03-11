@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @RequestMapping("/api/time")
 public class TimeController {
     @GetMapping
-    public LocalTime[] getTime(){
+    public String[] getTime(){
         Time time = new Time();
 
         return time.getTime();
